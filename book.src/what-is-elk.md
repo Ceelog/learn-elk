@@ -36,7 +36,7 @@ ELK 是 3 款开源软件 [Elasticsearch](https://github.com/elastic/elasticsea
 >
 > [Kafka](https://kafka.apache.org/) 正是这样一款分布式消息队列服务中间件。
 
-![Kafka](./imgs/kafka-intro.png)
+![Kafka](./imgs/Kafka-Intro.png)
 
 
 ## Filebeat
