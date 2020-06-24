@@ -17,6 +17,5 @@
 - [Nginx - http://learn-elk.roadmapedu.com:8000](http://learn-elk.roadmapedu.com:8000)
 - [Kibana - http://learn-elk.roadmapedu.com:5601](http://learn-elk.roadmapedu.com:5601)
 - [Kafka - http://learn-elk.roadmapedu.com:9090](http://learn-elk.roadmapedu.com:9090)
-- [Elasticsearch- http://learn-elk.roadmapedu.com:9200](http://learn-elk.roadmapedu.com:9200)
 
 对以上 Nginx 网站的访问日志，将实时索引到 Elasticsearch，并可以通过 Kibana 查看。
