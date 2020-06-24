@@ -1,0 +1,26 @@
+filebeat.inputs:
+  - type: log
+    paths:
+      - /var/log/*access.log
+    encoding: utf-8
+    fields:
+      topic: nginx-log
+    scan_frequency: 1s
+    harvester_buffer_size: 16384
+    tail_files: false
+    close_eof: true
+    clean_removed: true
+  
+processors:
+  - drop_fields:
+      fields: ["ecs", "input", "host", "agent", "log.offset"]
+      ignore_missing: true
+
+#------------------------------- Kafka output ---------------------------------
+output.kafka:
+  enabled: true
+  hosts: ["kafka:9092"]
+  topic: elk-%{[fields.topic]}
+  worker: 2
+  keep_alive: 60
+  required_acks: 1
