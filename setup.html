@@ -1,0 +1,413 @@
+<!DOCTYPE HTML>
+<html lang="zh" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>演示环境安装与配置</title>
+        
+        
+
+
+        <!-- Custom HTML head -->
+        
+
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        
+        <link rel="icon" href="favicon.svg">
+        
+        
+        <link rel="shortcut icon" href="favicon.png">
+        
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        
+        <link rel="stylesheet" href="css/print.css" media="print">
+        
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        
+        <link rel="stylesheet" href="fonts/fonts.css">
+        
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="preface.html"><strong aria-hidden="true">1.</strong> 前言</a></li><li class="chapter-item expanded "><a href="what-is-elk.html"><strong aria-hidden="true">2.</strong> 什么是 ELK Stack</a></li><li class="chapter-item expanded "><a href="setup.html" class="active"><strong aria-hidden="true">3.</strong> 演示环境安装与配置</a></li><li class="chapter-item expanded "><a href="nginx.html"><strong aria-hidden="true">4.</strong> Nginx 访问日志</a></li><li class="chapter-item expanded "><a href="filebeat.html"><strong aria-hidden="true">5.</strong> Filebeat 日志收割</a></li><li class="chapter-item expanded "><a href="kafka.html"><strong aria-hidden="true">6.</strong> Kafka 消息队列</a></li><li class="chapter-item expanded "><a href="logstash.html"><strong aria-hidden="true">7.</strong> Logstash 处理日志</a></li><li class="chapter-item expanded "><a href="elasticsearch.html"><strong aria-hidden="true">8.</strong> Elasticsearch 索引日志</a></li><li class="chapter-item expanded "><a href="kibana.html"><strong aria-hidden="true">9.</strong> Kibana 分析日志</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="kibana/query.html"><strong aria-hidden="true">9.1.</strong> 查询日志</a></li><li class="chapter-item expanded "><a href="kibana/visualize.html"><strong aria-hidden="true">9.2.</strong> 可视化报表</a></li><li class="chapter-item expanded "><a href="kibana/dashbord.html"><strong aria-hidden="true">9.3.</strong> Dashbord</a></li></ol></li><li class="chapter-item expanded "><a href="end.html"><strong aria-hidden="true">10.</strong> 结语</a></li><li class="chapter-item expanded "><a href="author.html"><strong aria-hidden="true">11.</strong> 关于作者</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title"></h1>
+
+                    <div class="right-buttons">
+                        
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                        
+                        <a href="https://github.com/Ceelog/learn-elk" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1><a class="header" href="#演示环境安装与配置" id="演示环境安装与配置">演示环境安装与配置</a></h1>
+<h2><a class="header" href="#本地开发环境" id="本地开发环境">本地开发环境</a></h2>
+<p>为了深入理解各个组件的使用，建议读者在本地搭建一个开发环境。</p>
+<p>为了解决系统环境和依赖的问题，本小册使用 Docker 容器运行各个组件，并使用 Docker Compose 进行服务编排，实现可「一键启动」的开发环境。</p>
+<h3><a class="header" href="#docker-下载与安装" id="docker-下载与安装">Docker 下载与安装</a></h3>
+<p>Docker 是一种容器化技术，可以将软件及其依赖的运行环境打包进一个容器中，和虚拟机不同的是，Docker 容器非常轻量，可以实现秒级的启动或关闭。</p>
+<ul>
+<li>
+<p>Docker 支持 Linux / Windows / MacOS 平台。</p>
+</li>
+<li>
+<p>在官网下载与安装 Docker <a href="https://docs.docker.com/get-docker/">https://docs.docker.com/get-docker/</a></p>
+</li>
+<li>
+<p>系统配置要求：</p>
+<ul>
+<li>4GB 以上内存</li>
+<li>2 核以上 CPU</li>
+</ul>
+</li>
+</ul>
+<h4><a class="header" href="#docker-desktop-for-windowsmac" id="docker-desktop-for-windowsmac">Docker Desktop for Windows/Mac</a></h4>
+<p>为了支持 Windows 和 Mac 操作系统，Docker 开发了 Docker Desktop for Windows/Mac</p>
+<p>以下是 Docker Desktop 运行起来的界面：</p>
+<p><img src="./imgs/docker-desktop-mac.png" alt="Docker Desktop for Mac" /></p>
+<p>可以通过设置页面，配置足够的计算资源：</p>
+<p><img src="./imgs/docker-desktop-resource.png" alt="Docker Desktop Resource" /></p>
+<h4><a class="header" href="#docker-for-linux" id="docker-for-linux">Docker for Linux</a></h4>
+<p>由于 Docker 源于 Linux 虚拟化技术，所以对 Linux 操作系统支持的很好。</p>
+<p>安装参见 <a href="https://docs.docker.com/engine/install/">https://docs.docker.com/engine/install/</a></p>
+<h4><a class="header" href="#启动-docker" id="启动-docker">启动 Docker</a></h4>
+<p>Docker Desktop for Windows/Mac 安装完成后，直接双击图标就可以启动：</p>
+<p><img src="./imgs/docker-desktop-start.png" alt="Docker Desktop start" /></p>
+<p>Docker for Linux 安装完成后，需要先启动 Docker 服务：</p>
+<pre><code>service docker start
+</code></pre>
+<p>启动成功后，可以在命令行查看 Docker 相关信息：</p>
+<pre><code class="language-shell"># docker version
+Client: Docker Engine - Community
+ Version:           19.03.7
+ API version:       1.40
+ Go version:        go1.12.17
+ Git commit:        7141c199a2
+ Built:             Wed Mar  4 01:24:10 2020
+ OS/Arch:           linux/amd64
+ Experimental:      false
+
+Server: Docker Engine - Community
+ Engine:
+  Version:          19.03.7
+  API version:      1.40 (minimum version 1.12)
+  Go version:       go1.12.17
+  Git commit:       7141c199a2
+  Built:            Wed Mar  4 01:22:45 2020
+  OS/Arch:          linux/amd64
+  Experimental:     false
+ containerd:
+  Version:          1.2.13
+  GitCommit:        7ad184331fa3e55e52b890ea95e65ba581ae3429
+ runc:
+  Version:          1.0.0-rc10
+  GitCommit:        dc9208a3303feef5b3839f4323d9beb36df0a9dd
+ docker-init:
+  Version:          0.18.0
+</code></pre>
+<p>如果没有启动成功，则会报错：</p>
+<pre><code class="language-shell"># docker ps
+Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?
+
+</code></pre>
+<h4><a class="header" href="#docker-compose" id="docker-compose">Docker Compose</a></h4>
+<p>有了 Docker 后我们可以轻松运行各种软件，但是对于一个大型系统，涉及很多服务，以及服务之间的依赖关系。</p>
+<p>如果手动处理各个服务、网络配置等计算资源，效率低下且容易出错。</p>
+<p>这个时候可以使用 <a href="https://docs.docker.com/compose/">Docker Compose</a> 编排这些服务，实现大型系统的「一键启动」</p>
+<p><img src="./imgs/docker-compose.jpg" alt="Docker Compose" /></p>
+<h3><a class="header" href="#docker-配置" id="docker-配置">Docker 配置</a></h3>
+<p>本小册演示环境的所有配置都已经开源并托管在 Github ，下载地址： </p>
+<ul>
+<li><a href="https://github.com/Ceelog/learn-elk">https://github.com/Ceelog/learn-elk</a> </li>
+</ul>
+<p>系统配置目录结构如下所示：</p>
+<pre><code>.
+├── docker-compose.yml
+├── elasticsearch
+│   ├── config
+│   │   └── elasticsearch.yml
+│   └── Dockerfile
+├── .env
+├── filebeat
+│   ├── Dockerfile
+│   └── filebeat.yml
+├── kibana
+│   ├── config
+│   │   └── kibana.yml
+│   └── Dockerfile
+├── logstash
+│   ├── config
+│   │   └── logstash.yml
+│   ├── Dockerfile
+│   └── pipeline
+│       ├── logstash.conf
+│       └── nginx.conf
+└── nginx
+    ├── html
+    │   └── index.html
+    └── nginx.conf
+</code></pre>
+<p>其中 <code>.env</code> 文件声明使用 7.6.2 版本的 Elastic Stack:</p>
+<pre><code class="language-shell">ELK_VERSION=7.6.2
+</code></pre>
+<p>如果你想测试其他版本的 Elastic Stack，只需修改<code>ELK_VERSION</code>参数即可。</p>
+<h3><a class="header" href="#一键启动" id="一键启动">一键启动</a></h3>
+<p>上述配置文件中，<code>docker-compose.yml</code> 声明了我们需要的服务以及如果构建这些服务。</p>
+<p>Docker 安装并启动后，执行以下命令即可「一键启动」整个开发环境：</p>
+<pre><code class="language-shell">cd learn-elk.git/docker-compose/
+
+docker-compose -f &quot;docker-compose.yml&quot; up -d --build
+</code></pre>
+<pre><code class="language-shell"># 运行结果
+Creating network &quot;learn-elkgit_elk&quot; with driver &quot;bridge&quot;
+Creating network &quot;learn-elkgit_default&quot; with the default driver
+
+Building elasticsearch
+Step 1/2 : ARG ELK_VERSION
+Step 2/2 : FROM docker.elastic.co/elasticsearch/elasticsearch:${ELK_VERSION}
+ ---&gt; f29a1ee41030
+Successfully built f29a1ee41030
+Successfully tagged learn-elkgit_elasticsearch:latest
+Building logstash
+Step 1/2 : ARG ELK_VERSION
+Step 2/2 : FROM docker.elastic.co/logstash/logstash:${ELK_VERSION}
+ ---&gt; fa5b3b1e9757
+Successfully built fa5b3b1e9757
+Successfully tagged learn-elkgit_logstash:latest
+Building kibana
+Step 1/2 : ARG ELK_VERSION
+Step 2/2 : FROM docker.elastic.co/kibana/kibana:${ELK_VERSION}
+ ---&gt; f70986bc5191
+Successfully built f70986bc5191
+Successfully tagged learn-elkgit_kibana:latest
+Building filebeat
+Step 1/2 : ARG ELK_VERSION
+Step 2/2 : FROM docker.elastic.co/beats/filebeat:${ELK_VERSION}
+ ---&gt; 0272ee9a7757
+Successfully built 0272ee9a7757
+Successfully tagged learn-elkgit_filebeat:latest
+Creating learn-elkgit_nginx_1         ... done
+Creating learn-elkgit_zookeeper_1     ... done
+Creating learn-elkgit_elasticsearch_1 ... done
+Creating learn-elkgit_kafka_1         ... done
+Creating learn-elkgit_kibana_1        ... done
+Creating learn-elkgit_logstash_1      ... done
+Creating learn-elkgit_filebeat_1      ... done
+Creating learn-elkgit_kafdrop_1       ... done
+Creating learn-elkgit_metricbeat_1    ... done
+
+</code></pre>
+<blockquote>
+<p>注意：首次启动的时候，需要下载镜像文件，可能需要数十分钟，请耐心等候一下</p>
+</blockquote>
+<p>如果你使用 VSCode 编辑器 并且 安装了 Docker 插件，那么你可以看到运行中的容器状态：</p>
+<p><img src="./imgs/docker-containers.png" alt="Docker Containers" /></p>
+<h2><a class="header" href="#小结" id="小结">小结</a></h2>
+<p>本小节介绍了在线演示环境使用、本地开发环境搭建，在这个过程中读者也对整个系统有了大概的认识。</p>
+<p>接下来，我们深入每个模块，了解其配置和运行环境。</p>
+<h2><a class="header" href="#常见问题" id="常见问题">常见问题</a></h2>
+<ul>
+<li>filebeat 启动报错：</li>
+</ul>
+<pre><code class="language-shell">Exiting: error loading config file: 
+config file (&quot;filebeat.yml&quot;) can only be writable by the owner but the permissions are &quot;-rw-rw-r--&quot; 
+(to fix the permissions use: 'chmod go-w /usr/share/filebeat/filebeat.yml')
+</code></pre>
+<p>原因：如果在 Linux 系统下启动，需要保证 filebeat 配置文件的读写权限正确，否则 Filebaet 容器无法启动并报错</p>
+<p>解决方法：修改 filebeat 配置文件权限 <code>chmod 644 filebeat.yml</code></p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="what-is-elk.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="nginx.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="what-is-elk.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="nginx.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>

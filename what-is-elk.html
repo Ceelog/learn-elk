@@ -1,0 +1,274 @@
+<!DOCTYPE HTML>
+<html lang="zh" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>什么是 ELK Stack</title>
+        
+        
+
+
+        <!-- Custom HTML head -->
+        
+
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        
+        <link rel="icon" href="favicon.svg">
+        
+        
+        <link rel="shortcut icon" href="favicon.png">
+        
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        
+        <link rel="stylesheet" href="css/print.css" media="print">
+        
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        
+        <link rel="stylesheet" href="fonts/fonts.css">
+        
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="preface.html"><strong aria-hidden="true">1.</strong> 前言</a></li><li class="chapter-item expanded "><a href="what-is-elk.html" class="active"><strong aria-hidden="true">2.</strong> 什么是 ELK Stack</a></li><li class="chapter-item expanded "><a href="setup.html"><strong aria-hidden="true">3.</strong> 演示环境安装与配置</a></li><li class="chapter-item expanded "><a href="nginx.html"><strong aria-hidden="true">4.</strong> Nginx 访问日志</a></li><li class="chapter-item expanded "><a href="filebeat.html"><strong aria-hidden="true">5.</strong> Filebeat 日志收割</a></li><li class="chapter-item expanded "><a href="kafka.html"><strong aria-hidden="true">6.</strong> Kafka 消息队列</a></li><li class="chapter-item expanded "><a href="logstash.html"><strong aria-hidden="true">7.</strong> Logstash 处理日志</a></li><li class="chapter-item expanded "><a href="elasticsearch.html"><strong aria-hidden="true">8.</strong> Elasticsearch 索引日志</a></li><li class="chapter-item expanded "><a href="kibana.html"><strong aria-hidden="true">9.</strong> Kibana 分析日志</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="kibana/query.html"><strong aria-hidden="true">9.1.</strong> 查询日志</a></li><li class="chapter-item expanded "><a href="kibana/visualize.html"><strong aria-hidden="true">9.2.</strong> 可视化报表</a></li><li class="chapter-item expanded "><a href="kibana/dashbord.html"><strong aria-hidden="true">9.3.</strong> Dashbord</a></li></ol></li><li class="chapter-item expanded "><a href="end.html"><strong aria-hidden="true">10.</strong> 结语</a></li><li class="chapter-item expanded "><a href="author.html"><strong aria-hidden="true">11.</strong> 关于作者</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title"></h1>
+
+                    <div class="right-buttons">
+                        
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                        
+                        <a href="https://github.com/Ceelog/learn-elk" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1><a class="header" href="#什么是-elk-stack" id="什么是-elk-stack">什么是 ELK Stack</a></h1>
+<p><img src="./imgs/elk-stack.jpg" alt="elk stack" /></p>
+<p>ELK 是 3 款开源软件 <a href="https://github.com/elastic/elasticsearch">Elasticsearch</a> / <a href="https://github.com/elastic/Logstash">Logstash</a> / <a href="https://github.com/elastic/kibana">Kibana</a> 的简称，基于这 3 款软件及其相关组件组成的数据处理系统称之为 ELK Stack。</p>
+<p>从上面的架构图可以清晰地看到各个组件以栈[Stack]的形式构成整个系统。</p>
+<p>由于系统涉及的组件越来越多，比如 Filebeat、Metricbeat、Kafka、Zookeeper 等，而不仅仅是 ELK，所以 ELK Stack 也逐渐被称为 Elastic Stack。</p>
+<p>下面，简单介绍 Elastic Stack 涉及的各个组件：</p>
+<h2><a class="header" href="#elasticsearch" id="elasticsearch">Elasticsearch</a></h2>
+<blockquote>
+<p><a href="https://www.elastic.co/cn/elasticsearch">Elasticsearch</a> 是一个搜索和分析引擎，主要负责将日志索引并存储起来，方便业务方检索查询</p>
+</blockquote>
+<p><img src="./imgs/elasticsearch.jpg" alt="Elasticsearch" /></p>
+<h2><a class="header" href="#logstash" id="logstash">Logstash</a></h2>
+<blockquote>
+<p><a href="https://www.elastic.co/cn/logstash">Logstash</a> 是服务器端数据处理管道，能够同时从多个来源采集数据，转换数据，然后将数据发送到诸如 Elasticsearch 等“存储库”中</p>
+</blockquote>
+<p><img src="./imgs/logstash.jpg" alt="Logstash" /></p>
+<h2><a class="header" href="#kibana" id="kibana">Kibana</a></h2>
+<blockquote>
+<p><a href="https://www.elastic.co/cn/kibana">Kibana</a> 则可以让用户在 Elasticsearch 中使用图形和图表对数据进行可视化</p>
+</blockquote>
+<p><img src="./imgs/kibana.jpg" alt="Kibana" /></p>
+<h2><a class="header" href="#kafka" id="kafka">Kafka</a></h2>
+<blockquote>
+<p>在生产环境中，为了提升系统的稳定性和可扩展性，会增加一层消息队列中间件，用来「削峰填谷」，从容应对各类突发流量，保障后端日志索引服务的平稳性。</p>
+<p><a href="https://kafka.apache.org/">Kafka</a> 正是这样一款分布式消息队列服务中间件。</p>
+</blockquote>
+<p><img src="./imgs/Kafka-Intro.png" alt="Kafka" /></p>
+<h2><a class="header" href="#filebeat" id="filebeat">Filebeat</a></h2>
+<blockquote>
+<p><a href="https://www.elastic.co/cn/beats/filebeat">Filebeat</a> 是轻量型日志采集器，用于转发和汇总日志与文件，让简单的事情不再繁杂。</p>
+</blockquote>
+<p><img src="./imgs/filebeat.png" alt="Filebeat" /></p>
+<h2><a class="header" href="#小结" id="小结">小结</a></h2>
+<p>基于 Elastic Stack 可以轻松打造大规模日志实时分析处理系统。</p>
+<p>所谓「大规模」，指的是 Elastic Stack 支持每天收集、处理、索引数十甚至上百亿规模的各类日志，这主要得益于 Filebeat、Kafka、Logstash、Elasticsearch 都支持分布式部署，可以无限水平扩展。</p>
+<p>各类文本形式的日志都在处理范围，本小册以最常见的 Nginx 访问日志为例，演示如何搭建大规模日志实时分析处理系统。对访问日志的实时分析，可以帮助我们随时掌握业务的运行状况、统计 PV/UV、发现异常流量、分析用户行为、查看热门站内搜索关键词等。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="preface.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="setup.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="preface.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="setup.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>
