@@ -59,6 +59,4 @@
 
 ## 运行效果
 
-[http://learn-elk.roadmapedu.com:8000](http://learn-elk.roadmapedu.com:8000)
-
 ![Nginx Web](./imgs/nginx-web.jpg)

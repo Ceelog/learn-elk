@@ -1,17 +1,5 @@
 # 演示环境安装与配置
 
-## 在线演示环境
-
-由于 Elastic Stack 涉及的组件比较多，对初学者来说，将每个组件独立运行起来可能比较困难。
-
-本小册配套搭建了一个在线演示环境，读者可以直接访问概览整个系统：
-
-- [Nginx - http://learn-elk.roadmapedu.com:8000](http://learn-elk.roadmapedu.com:8000)
-- [Kibana - http://learn-elk.roadmapedu.com:5601](http://learn-elk.roadmapedu.com:5601)
-- [Kafka - http://learn-elk.roadmapedu.com:9090](http://learn-elk.roadmapedu.com:9090)
-
-对以上 Nginx 网站的访问日志，将实时索引到 Elasticsearch，并可以通过 Kibana 查看。
-
 ## 本地开发环境
 
 为了深入理解各个组件的使用，建议读者在本地搭建一个开发环境。
