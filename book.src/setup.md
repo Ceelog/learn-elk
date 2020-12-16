@@ -213,6 +213,10 @@ config file ("filebeat.yml") can only be writable by the owner but the permissio
 (to fix the permissions use: 'chmod go-w /usr/share/filebeat/filebeat.yml')
 ```
 
-原因：如果在 Linux 系统下启动，需要保证 filebeat 配置文件的读写权限正确，否则 Filebaet 容器无法启动并报错
+原因：
 
-解决方法：修改 filebeat 配置文件权限 `chmod 644 filebeat.yml`
+如果在 Linux 系统下启动，需要保证 filebeat 配置文件的读写权限正确，否则 Filebaet 容器无法启动并报错
+
+解决方法：
+
+修改 filebeat 配置文件权限 `chmod 644 filebeat.yml`

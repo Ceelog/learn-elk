@@ -4,7 +4,7 @@
 - [什么是 ELK Stack](./what-is-elk.md)
 - [演示环境安装与配置](./setup.md)
 - [Nginx 访问日志](./nginx.md)
-- [Filebeat 日志收割](./filebeat.md)
+- [Filebeat 日志收集](./filebeat.md)
 - [Kafka 消息队列](./kafka.md)
 - [Logstash 处理日志](logstash.md)
 - [Elasticsearch 索引日志](./elasticsearch.md)
