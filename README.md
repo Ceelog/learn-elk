@@ -4,6 +4,10 @@
 
 在示例中，我们将打造一个大规模日志实时分析系统，实现每天数十亿条日志或者 PB 级数据的分析处理。
 
+## 在线阅读
+
+[https://ceelog.github.io/learn-elk/](https://ceelog.github.io/learn-elk/)
+
 ## 目录
 
 - [前言](./book.src/preface.md)
