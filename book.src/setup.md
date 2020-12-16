@@ -205,7 +205,6 @@ Creating learn-elkgit_metricbeat_1    ... done
 
 ## 常见问题
 
-
 - filebeat 启动报错：
 
 ```shell
